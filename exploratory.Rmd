@@ -1,0 +1,36 @@
+---
+title: "Exploratory Data Analysis"
+output: html_notebook
+---
+
+# Exploratory Bee Hive Data Analysis
+
+```{r setup, echo=FALSE}
+library(ggplot2)
+library(data.table)
+library(lubridate)
+# tests for normality
+library(nortest)
+knitr::opts_knit$set(root.dir = normalizePath("C:\\Users\\lpz\\Desktop\\UChicago\\19-20\\Capstone\\Beenamics")) 
+```
+
+```{r}
+all_data = data.table(read.csv("cleaned.txt",sep = "\t", header = TRUE))
+all_data = all_data[, time:=as_datetime(time/1000)]
+
+all_mass = all_data[type=="Weight"]
+R1_mass = all_mass[hive=="R1"]
+hist(all_mass$value, main = "Distribution of Hive Masses (lbs)")
+
+#all internal Temperatures
+all_iT = all_data[type=="TempInt"]
+R1_iT = all_iT[hive=="R1"]
+hist(all_iT$value, main = "Distribution of Internal Hive Temperatures (deg F)")
+
+#check the temperature difference?
+
+# internal humidity
+all_humid = all_data[type=="Humidity"]
+R1_iT = all_iT[hive=="R1"]
+hist(all_humid$value, main = "Distribution of Hive Humidities (%)")
+```
