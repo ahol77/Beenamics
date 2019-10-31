@@ -1,5 +1,7 @@
 #!/usr/bin/awk -f
 
+# only for multiple data types in a single file
+
 BEGIN   {
     hive_ID = " ";
     measurement = " ";
