@@ -8,6 +8,9 @@ Created on Mon Oct 21 23:29:41 2019
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
+import statsmodels.api as sm
+
+import util
 
 df = pd.read_csv('cleaned.txt', delim_whitespace=True)
 df['time'] = pd.to_datetime(df['time'],unit='ms')
@@ -51,24 +54,38 @@ for brood_hive_name, brood_hive_group in brood_hives:
     spec = spec_p_i.rename(columns={"value": brood_hive_name})
     Broods = pd.merge(Broods, spec, left_index=True,
                                 right_index=True, how='outer')
-    
+
 #Can use either D (day), W (week), or M (month) to group data
-plt.figure()
-plt.plot(Weight.resample('M').mean())
-plt.legend(Weight)
-plt.title("Weight", fontsize = 24)
-plt.xlabel("Time", fontsize = 24)
-plt.ylabel("Weight", fontsize = 24)
+if False:
+    plt.figure()
+    plt.plot(Weight.resample('M').mean())
+    plt.legend(Weight)
+    plt.title("Weight", fontsize = 24)
+    plt.xlabel("Time", fontsize = 24)
+    plt.ylabel("Weight", fontsize = 24)
 
-plt.figure()
-plt.plot(Broods.resample('D').mean())
-plt.legend(Broods)
-plt.title("Brood Number", fontsize = 24)
-plt.xlabel("Time", fontsize = 24)
-plt.ylabel("Relative Brood Quantity (not sure units)", fontsize = 24)
+if False:
+    plt.figure()
+    plt.plot(Broods.resample('D').mean())
+    plt.legend(Broods)
+    plt.title("Brood Number", fontsize = 24)
+    plt.xlabel("Time", fontsize = 24)
+    plt.ylabel("Relative Brood Quantity (not sure units)", fontsize = 24)
 
-plt.figure()
-plt.plot(TempInt["R1"].resample('H').mean(), label = "External Temp")
-plt.plot(Broods["R1"].resample('D').mean(), label = "Broods")
-plt.legend()
+interval = pd.DataFrame({'year':  [2019, 2019],
+                         'month': [2,    4],
+                         'day':   [25,   22]})
+t_bounds = pd.to_datetime(interval)
+start = t_bounds[0]
+end = t_bounds[1]
+
+relevant_hives = ['R1','R2','R3','R5','R6']
+# humidity needs mean by day
+relevant_H = Humidity.loc[start:end, relevant_hives]
+
+
+
+
+
+
 
