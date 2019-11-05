@@ -9,6 +9,9 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 from matplotlib import pyplot as plt
+import statsmodels.api as sm
+
+import util
 
 df = pd.read_csv('cleaned.txt', delim_whitespace=True)
 df['time'] = pd.to_datetime(df['time'],unit='ms')
@@ -61,24 +64,33 @@ for brood_hive_name, brood_hive_group in brood_hives:
     Broods = pd.merge(Broods, spec, left_index=True,
                                 right_index=True, how='outer')
 
-# utility function for quick plotting
-def plot_df(df, label, interval='D', fontsize=24):
+def plot_df(df, data_name, interval='W', fontsize=24):
     #Can use either D (day), W (week), or M (month) to group data
     plt.figure()
     plt.plot(df.resample(interval).mean())
     plt.legend(df)
-    plt.xlabel("Time", fontsize = 24)
-    plt.ylabel(label, fontsize = 24)
+    plt.xlabel("Time", fontsize = fontsize)
+    plt.ylabel(data_name, fontsize = fontsize)
 
-#Can use either D (day), W (week), or M (month) to group data
-plot_df(Weight, "Weight", interval='W')
-plot_df(Broods, "Brood Percent", interval='W')
-plot_df(TempInt, "External Temperature (F)", interval='W')
+plot_df(Weight, "Weight")
+plot_df(Broods, "Brood Percent")
 
-plt.figure()
-plt.plot(TempInt["R1"].resample('H').mean(), label = "External Temp")
-plt.plot(Broods["R1"].resample('D').mean(), label = "Broods")
-plt.legend()
+interval = pd.DataFrame({'year':  [2019, 2019],
+                         'month': [2,    4],
+                         'day':   [25,   22]})
+t_bounds = pd.to_datetime(interval)
+start = t_bounds[0]
+end = t_bounds[1]
+
+relevant_hives = ['R1','R2','R3','R5','R6']
+# humidity needs mean by day
+relevant_H = Humidity.loc[start:end, relevant_hives]
+
+
+
+
+
+
 
 ###  Linear Regression ###
 # corresponds to success/failure of
