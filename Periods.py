@@ -7,6 +7,7 @@ Created on Mon Oct 21 23:29:41 2019
 
 import numpy as np
 import pandas as pd
+import statsmodels.api as sm
 from matplotlib import pyplot as plt
 
 df = pd.read_csv('cleaned.txt', delim_whitespace=True)
@@ -79,3 +80,14 @@ plt.plot(TempInt["R1"].resample('H').mean(), label = "External Temp")
 plt.plot(Broods["R1"].resample('D').mean(), label = "Broods")
 plt.legend()
 
+###  Linear Regression ###
+# corresponds to success/failure of
+#              R1, R2, R3, R5, R6
+Ys = np.array([0,  1,  0,  1,  1])
+
+# TODO:
+# get numpy array where each row is a hive, with
+# [ ..humidity data.., ..temperature data.., ..weight data.. ]
+# and then
+# X = sm.add_constant(X)
+# model = sm.OLS(Ys, X)
