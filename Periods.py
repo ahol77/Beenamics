@@ -141,13 +141,13 @@ models = [sm.Logit(util.drop_row(i,y), X) for i, X in enumerate(X_permutations)]
 test_err = []
 # range of values used for fitting models with different
 # penalizations/regularizations for extra parameters
-reg_range = np.linspace(6,10,30)
+reg_range = np.linspace(0.1,1,40)
 for a in reg_range:
     fit_params = [model.fit_regularized(alpha=a).params for model in models]
-    errors = y - np.array([
+    errors = np.abs(y - np.array([
             model.predict(params, X[i,:])
             for i, (model, params) in enumerate(zip(models, fit_params))
-    ])
+    ]))
     test_err.append(np.sum(errors)/len(errors))
 
 plt.plot(reg_range, test_err)
@@ -156,4 +156,5 @@ plt.plot(reg_range, test_err)
 idx = test_err.index(min(test_err))
 # corresponds to the alpha that minimizes error
 alpha = np.round(reg_range[idx], 3)
+print(alpha)
 
