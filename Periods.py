@@ -54,18 +54,20 @@ for brood_hive_name, brood_hive_group in brood_hives:
     
 #Can use either D (day), W (week), or M (month) to group data
 plt.figure()
-plt.plot(Weight.resample('M').mean())
-plt.legend(Weight)
-plt.title("Weight", fontsize = 24)
+plt.plot(TempExt.resample('H').mean())
+plt.legend(TempExt)
+plt.title("Temp", fontsize = 24)
 plt.xlabel("Time", fontsize = 24)
-plt.ylabel("Weight", fontsize = 24)
+plt.ylabel("Temp", fontsize = 24)
+
+Broods_interest = ['R1','R2','R3','R5','RHH']
 
 plt.figure()
-plt.plot(Broods.resample('D').mean())
-plt.legend(Broods)
-plt.title("Brood Number", fontsize = 24)
+plt.rc('font', size=24)
+plt.plot(Broods[Broods_interest].resample('D').mean())
+plt.legend(Broods[Broods_interest], prop={'size': 16})
 plt.xlabel("Time", fontsize = 24)
-plt.ylabel("Relative Brood Quantity (not sure units)", fontsize = 24)
+plt.ylabel("Brood Percentage", fontsize = 24)
 
 plt.figure()
 plt.plot(TempInt["R1"].resample('H').mean(), label = "External Temp")
