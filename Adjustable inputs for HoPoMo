@@ -1,0 +1,30 @@
+Adjustable inputs for HoPoMo
+
+* : Literature value
+- : Likely to be removed
++ : Empirical data we already have/can get
+? : Do not have immediate path to value, will talk with Mellisphera
+
+Queen Egg Laying
+	-xi: Parameters that influence the shape of the season factor and can be adjusted to adjust for different climates
+
+	-SUPthreshold:
+
+	+CELLSperframe:
+	+FRAMESperhive:
+
+	ELRstochrange:
+	ELRbase: mean daily egg laying rate of the queen at the maximum egg laying peak in Spring
+
+Brood development
+
+	*LIFESPANegg: represents time required for brood development (in days). Likely does not need to be changed
+	*LIFESPANlarvae: represents time required for brood development (in days). Likely does not need to be changed
+	*LIFESPANpupa: represents time required for brood development (in days). Likely does not need to be changed
+
+
+	INITeggs: Constants that represent the initial population state of the colony
+	INITlarvae: Constants that represent the initial population state of the colony
+	INItpupae: Constants that represent the initial population state of the colony
+
+	MORTALITYeggs: Daily egg mortality, treated as a constant in this model 

@@ -60,6 +60,28 @@ for brood_hive_name, brood_hive_group in brood_hives:
     spec = spec_p_i.rename(columns={"value": brood_hive_name})
     Broods = pd.merge(Broods, spec, left_index=True,
                                 right_index=True, how='outer')
+    
+#Can use either D (day), W (week), or M (month) to group data
+plt.figure()
+plt.plot(TempExt.resample('H').mean())
+plt.legend(TempExt)
+plt.title("Temp", fontsize = 24)
+plt.xlabel("Time", fontsize = 24)
+plt.ylabel("Temp", fontsize = 24)
+
+Broods_interest = ['R1','R2','R3','R5','RHH']
+
+plt.figure()
+plt.rc('font', size=24)
+plt.plot(Broods[Broods_interest].resample('D').mean())
+plt.legend(Broods[Broods_interest], prop={'size': 16})
+plt.xlabel("Time", fontsize = 24)
+plt.ylabel("Brood Percentage", fontsize = 24)
+
+plt.figure()
+plt.plot(TempInt["R1"].resample('H').mean(), label = "External Temp")
+plt.plot(Broods["R1"].resample('D').mean(), label = "Broods")
+plt.legend()
 
 def plot_df(df, data_name, interval='W', fontsize=24):
     #Can use either D (day), W (week), or M (month) to group data
