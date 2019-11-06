@@ -60,7 +60,6 @@ for brood_hive_name, brood_hive_group in brood_hives:
     spec = spec_p_i.rename(columns={"value": brood_hive_name})
     Broods = pd.merge(Broods, spec, left_index=True,
                                 right_index=True, how='outer')
-<<<<<<< HEAD
     
 #Can use either D (day), W (week), or M (month) to group data
 plt.figure()
@@ -83,7 +82,6 @@ plt.figure()
 plt.plot(TempInt["R1"].resample('H').mean(), label = "External Temp")
 plt.plot(Broods["R1"].resample('D').mean(), label = "Broods")
 plt.legend()
-=======
 
 def plot_df(df, data_name, interval='W', fontsize=24):
     #Can use either D (day), W (week), or M (month) to group data
@@ -181,5 +179,4 @@ idx = test_err.index(min(test_err))
 # corresponds to the alpha that minimizes error
 alpha = np.round(reg_range[idx], 3)
 print(alpha)
->>>>>>> 257418860049605166dee321929889eb62b763be
 
