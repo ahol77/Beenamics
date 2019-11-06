@@ -9,6 +9,21 @@ import pandas as pd
 from matplotlib import pyplot as plt
 
 
+def drop_row(i, A):
+    vector = (len(A.shape)==1)
+    nrows = A.shape[0]
+    if i == 0:
+        A_new = A[1:]
+    elif i == (nrows - 1):
+        A_new = A[:-1]
+    else:
+        top = A[:i,]
+        bottom = A[(i+1):]
+        if vector:
+            A_new = np.concatenate([top, bottom])
+        else:
+            A_new = np.vstack([top, bottom])
+    return A_new
 
 # running super slowly, presumably b.c. of the dictionary of large pandas dfs
 def parse_data(fname, data_name="Broods"):
