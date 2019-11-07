@@ -60,6 +60,23 @@ for brood_hive_name, brood_hive_group in brood_hives:
     spec = spec_p_i.rename(columns={"value": brood_hive_name})
     Broods = pd.merge(Broods, spec, left_index=True,
                                 right_index=True, how='outer')
+    
+#Can use either D (day), W (week), or M (month) to group data
+plt.figure()
+plt.plot(TempExt.resample('H').mean())
+plt.legend(TempExt)
+plt.title("Temp", fontsize = 24)
+plt.xlabel("Time", fontsize = 24)
+plt.ylabel("Temp", fontsize = 24)
+
+Broods_interest = ['R1','R2','R3','R5','RHH']
+
+plt.figure()
+plt.rc('font', size=24)
+plt.plot(Broods[Broods_interest].resample('D').mean())
+plt.legend(Broods[Broods_interest], prop={'size': 16})
+plt.xlabel("Time", fontsize = 24)
+plt.ylabel("Brood Percentage", fontsize = 24)
 
 def plot_df(df, data_name, interval='W', fontsize=24):
     #Can use either D (day), W (week), or M (month) to group data
@@ -69,8 +86,9 @@ def plot_df(df, data_name, interval='W', fontsize=24):
     plt.xlabel("Time", fontsize = fontsize)
     plt.ylabel(data_name, fontsize = fontsize)
 
-plot_df(Weight, "Weight")
-plot_df(Broods, "Brood Percent")
+if False:
+    plot_df(Weight, "Weight")
+    plot_df(Broods, "Brood Percent")
 
 #########################
 ### Linear Regression ###
@@ -110,7 +128,7 @@ some_data = np.hstack([rel_H.to_numpy().T, rel_iT.to_numpy().T])
 more_data = np.hstack([some_data, rel_eT])
 all_data  = np.hstack([more_data, rel_W.to_numpy().T])
 
-X = all_data
+X = more_data
 X = sm.add_constant(X)
 # logistic regression
 model = sm.Logit(y,X)
@@ -119,8 +137,9 @@ model = sm.Logit(y,X)
 #print(results.summary())
 
 # try logistic regression w/regularization to take care of extra DoFs
-results = model.fit_regularized(method='l1', alpha=0.5)
-print(results.summary())
+if False:
+    results = model.fit_regularized(method='l1', alpha=0.5)
+    print(results.summary())
 
 # TODO:
 # maybe also try with GLS to avoid problems w/collinearity?
@@ -157,4 +176,8 @@ idx = test_err.index(min(test_err))
 # corresponds to the alpha that minimizes error
 alpha = np.round(reg_range[idx], 3)
 print(alpha)
+
+model = sm.Logit(y,X)
+best_fit = model.fit_regularized(alpha=alpha)
+print(best_fit.summary())
 
