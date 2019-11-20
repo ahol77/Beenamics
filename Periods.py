@@ -60,7 +60,7 @@ for brood_hive_name, brood_hive_group in brood_hives:
     spec = spec_p_i.rename(columns={"value": brood_hive_name})
     Broods = pd.merge(Broods, spec, left_index=True,
                                 right_index=True, how='outer')
-    
+
 #Can use either D (day), W (week), or M (month) to group data
 plt.figure()
 plt.plot(TempExt.resample('H').mean())
@@ -91,9 +91,10 @@ def plot_df(df, data_name, interval='W', fontsize=24):
     plt.xlabel("Time", fontsize = fontsize)
     plt.ylabel(data_name, fontsize = fontsize)
 
-if False:
-    plot_df(Weight, "Weight")
-    plot_df(Broods, "Brood Percent")
+
+relevant_hives = ['R1','R2','R3','R5','R6']
+#plot_df(Weight, "Weight")
+plot_df(Broods[relevant_hives], "Brood Percent")
 
 #########################
 ### Linear Regression ###
@@ -109,8 +110,6 @@ interval = pd.DataFrame({'year':  [2019, 2019],
 t_bounds = pd.to_datetime(interval)
 start = t_bounds[0]
 end = t_bounds[1]
-
-relevant_hives = ['R1','R2','R3','R5','R6']
 
 interval = 'W'
 rel_H = Humidity.loc[start:end, relevant_hives].resample(interval).mean()
