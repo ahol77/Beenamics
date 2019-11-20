@@ -8,13 +8,13 @@ Adjustable inputs for HoPoMo
 Queen Egg Laying
 	-xi: Parameters that influence the shape of the season factor and can be adjusted to adjust for different climates
 
-	-SUPthreshold:
+	-SUPthreshold: Determines the threshold for empty cells below which Queen's egg laying behavior becomes suppressed
 
-	+CELLSperframe:
-	+FRAMESperhive:
+	+CELLSperframe: Cells per frame in hive
+	+FRAMESperhive: Frames per hive
 
-	ELRstochrange:
-	ELRbase: mean daily egg laying rate of the queen at the maximum egg laying peak in Spring
+	?ELRstochrange: Determines the passible range for the stochastic affects on queen egg laying rate 
+	?ELRbase: mean daily egg laying rate of the queen at the maximum egg laying peak in Spring
 
 Brood development
 

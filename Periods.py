@@ -78,11 +78,6 @@ plt.legend(Broods[Broods_interest], prop={'size': 16})
 plt.xlabel("Time", fontsize = 24)
 plt.ylabel("Brood Percentage", fontsize = 24)
 
-plt.figure()
-plt.plot(TempInt["R1"].resample('H').mean(), label = "External Temp")
-plt.plot(Broods["R1"].resample('D').mean(), label = "Broods")
-plt.legend()
-
 def plot_df(df, data_name, interval='W', fontsize=24):
     #Can use either D (day), W (week), or M (month) to group data
     plt.figure()
