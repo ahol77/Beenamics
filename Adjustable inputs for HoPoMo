@@ -28,3 +28,51 @@ Brood development
 	INItpupae: Constants that represent the initial population state of the colony
 
 	MORTALITYeggs: Daily egg mortality, treated as a constant in this model 
+	?MORTALITYlarvae: Time independent base mortality of larvae
+	MORTALITYpupae: Mortality rate of pupae, treated as a constant here; usually signicantly smaller than that for eggs or larva
+
+Adult bees
+	?MORTALITYadultbase: Constant mortality rates for adult bees
+	?MORTALITYnursing: Constant mortality rate for nursing bees
+	?MORTALITYprocessing: Constant mortality rate for processing bees
+	?MORTALITYforaging: Constant mortality rate for foraging bees
+
+Modeling Task Decision Making
+	?FACTORothertasks: Accounts for fraction of adult bee population engaged in tasks not modeled, such as guarding, cleaning, etc.
+
+
+Modeling the regulation of foraging
+	?POLLENNEEDadult: daily pollen demand of a basic adult bee 
+	?POLLENNEDDnurse: additional daily pollen demand of nurses
+	
+	?FACTORpollenstorage: Constant that represents the storage level of pollen maintained by a hive, a value of 3 means that the hive stores enough pollen to last about 3 days, based on current levels of demand. Likely a genetic factor
+	
+	?LOADpollenforager: The amount of pollen collected in foraging trip, in units of cellfulls
+	?TURNSpollenforager: The number of trips made in a day by a pollen forager
+
+	?FACTORforagingmax: Sets limit on the total number of foragers on a given day
+	?FACTORforagingsuccess: Expresses the overall success rate of faraging trips
+	-FACTORminpollenforagers: Corrects for fact that, regardless of pollen need, there is some minimum number of pollen foragers in a cohort of bees
+
+	?FACTORforagingstoch: defines range for fluctuations for foraging success rates
+
+Modeling food regulation
+	
+	?ProcessorsPerCell: The number of processing bees required to process and store a cell of nectar
+
+	?FACTORpollensavingmax: Physiological component of a hive that represents the maximum fraction of pollen that can be saved by a hive through reducing consumption rate
+
+	RATIOnectar_to_honey: Describes the decrease in volume associated with the concentration of nectar to honey
+
+	?wpollen: The weight of 1 cell filled with the respective material, in grams
+	?wnectar: The weight of 1 cell filled with the respective material, in grams
+	?whoney: The weight of 1 cell filled with the respective material, in grams 
+
+	?wegg: The weight of a bee in the given stage, in grams
+	?wpupa: The weight of a bee in the given stage, in grams
+	?wadult: The weight of a bee in the given stage, in grams
+
+	?wlarvai: The weight of a larva at age i, in grams
+
+	?whivebase: The weight of the hive, in grams
+	?wcellsbase: The weight of one empty cell, in grams
